@@ -28,7 +28,7 @@ void RandomTrig () {
 	do {
 		TR1.transform.position = new Vector3(Random.Range(0, 4), TR1.transform.position.y, Random.Range(0, 4));
 		TR2.transform.position = new Vector3(Random.Range(0, 4), TR1.transform.position.y, Random.Range(0, 4));
-	} while (TR1 == TR2) ;
+	} while (TR1.transform.position == TR2.transform.position) ;
 }
 
 void Awake () {
@@ -89,12 +89,25 @@ void mvCol (int col, int i, int type) {
 }
 
 void Update () {
-	if ((TR1.GetComponent<TrigControl>().inside == false) && (TR2.GetComponent<TrigControl>().inside == false)) {
-		score += 1;
-		RandomTrig();
-		//print("Win " + score);
-		wintext.text = "Score : " + score;
-	}
+        if (checkEmpty(TR1) && checkEmpty(TR2)) {
+            score += 1;
+            RandomTrig();
+            wintext.text = "Score : " + score;
+        }
 }
+
+    bool checkEmpty (GameObject trig)
+    {
+
+        int posR = Mathf.RoundToInt(4 - trig.GetComponent<Transform>().position.x);
+        int posC = Mathf.RoundToInt(4 - trig.GetComponent<Transform>().position.z);
+
+        if ((trig.GetComponent<TrigControl>().inside == false) && mvcubes[posR, posC] == null)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
 }
