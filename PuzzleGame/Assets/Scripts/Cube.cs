@@ -1,30 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Cube : MonoBehaviour {
+public class Cube : MonoBehaviour
+{
+    [SerializeField] private Material StopMat;
+    [SerializeField] private Material DefMat;
+    
+    public Vector3 newPos;
+    
+    public bool IsBlocked { get; private set; }
 
-public Vector3 newPos;
-public Material StopMat;
-public Material DefMat;
-public bool blocked = false;
+    private void Awake()
+    {
+        newPos = transform.position;
+    }
 
-	void Awake () {
-		newPos = transform.position;
-	}
-	
-	void Update () {
-		transform.position = Vector3.Lerp(transform.position, newPos, 3 * Time.deltaTime);
-	}
+    private void Update()
+    {
+        transform.position = Vector3.Lerp(transform.position, newPos, 3 * Time.deltaTime);
+    }
 
-	void OnMouseDown () {
-		if (!blocked) {
-			GetComponent<Renderer>().material = StopMat;
-			blocked = true;
-		}
-		else {
-			GetComponent<Renderer>().material = DefMat;
-			blocked = false;
-		}
-	}
+    private void OnMouseDown()
+    {
+        if (!IsBlocked)
+        {
+            GetComponent<Renderer>().material = StopMat;
+            IsBlocked = true;
+            return;
+        }
+        
+        GetComponent<Renderer>().material = DefMat;
+        IsBlocked = false;
+    }
+    
 }

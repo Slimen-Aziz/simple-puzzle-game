@@ -1,33 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEditor;
 
-public class MenuScript 
+public static class MenuScript
 {
-	[MenuItem("Tools/Assign Tile Material")]
-	public static void AssignTileMat () {
-		GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tile");
-		Material mat = Resources.Load<Material>("Tile");
+    [MenuItem("Tools/Assign Tile Material")]
+    public static void AssignTileMat()
+    {
+        var tiles = GameObject.FindGameObjectsWithTag("Tile");
+        var mat = Resources.Load<Material>("Tile");
 
-		foreach (GameObject T in tiles)
-			T.GetComponent<Renderer>().material = mat;
-	}
+        foreach (var tile in tiles)
+            tile.GetComponent<Renderer>().material = mat;
+    }
 
-	[MenuItem("Tools/Assign Cube Material")]
-	public static void AssignCubeMat () {
-		GameObject[] cubes = GameObject.FindGameObjectsWithTag("mvCube");
-		Material mat = Resources.Load<Material>("mvCube");
+    [MenuItem("Tools/Assign Cube Material")]
+    public static void AssignCubeMat()
+    {
+        var cubes = GameObject.FindGameObjectsWithTag("mvCube");
+        var mat = Resources.Load<Material>("mvCube");
 
-		foreach (GameObject C in cubes)
-			C.GetComponent<Renderer>().material = mat;
-	}
+        foreach (var cube in cubes)
+            cube.GetComponent<Renderer>().material = mat;
+    }
 
-	[MenuItem("Tools/Assign Cube Script")]
-	public static void AssignCubeSc () {
-		GameObject[] cubes = GameObject.FindGameObjectsWithTag("mvCube");
+    [MenuItem("Tools/Assign Cube Script")]
+    public static void AssignCubeSc()
+    {
+        var cubes = GameObject.FindGameObjectsWithTag("mvCube");
 
-		foreach (GameObject C in cubes)
-			C.AddComponent<Cube>();
-	}
+        foreach (var cube in cubes)
+            cube.AddComponent<Cube>();
+    }
+    
 }
